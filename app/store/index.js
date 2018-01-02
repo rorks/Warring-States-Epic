@@ -1,0 +1,42 @@
+var store = new Vuex.Store({
+  state: {
+    cities: {
+      '2-8': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '3-10': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '2-11': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '4-9': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '5-12': {'state': 4, 'army': [2, 1, 1, 1], 'hero': 30, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': 4},
+      '2-14': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '3-13': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '3-16': {'state': 3, 'army': [2, 1, 1, 1], 'hero': 20, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': 3},
+      '2-18': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '2-20': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '6-2': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '3-6': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '9-2': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '10-4': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '7-5': {'state': 7, 'army': [2, 1, 1, 1], 'hero': 60, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': 7},
+      '5-8': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '5-10': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '6-11': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '6-9': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '7-12': {'state': 6, 'army': [2, 1, 1, 1], 'hero': 50, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': 6},
+      '4-14': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '5-15': {'state': 1, 'army': [2, 1, 1, 1], 'hero': 0, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': 1},
+      '6-14': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '6-16': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '5-18': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '6-7': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '8-7': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '8-9': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '9-10': {'state': 5, 'army': [2, 1, 1, 1], 'hero': 40, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': 5},
+      '9-12': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '8-11': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '10-7': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '11-10': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '11-13': {'state': 2, 'army': [2, 1, 1, 1], 'hero': 10, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': 2},
+      '8-16': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null},
+      '10-18': {'state': 0, 'army': [0, 0, 0, 0], 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0, 'special': null}
+    }
+  }
+})
