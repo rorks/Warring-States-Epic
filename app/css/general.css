@@ -1,0 +1,41 @@
+[v-cloak] { 
+  display:none; 
+}
+
+h5{
+	padding: 0;
+  margin: 0;
+	font-size: 9pt;
+	font-weight: normal;
+}
+
+body{
+  padding: 0;
+  margin: 0;
+}
+
+.full{
+  width: 1040pt;
+  height: 612pt;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border: 4pt solid darkslategrey;
+}
+
+#map{
+  background-image: url('../img/map.jpg');
+  background-size: cover;
+  opacity: 0.9;
+  z-index: -1;   
+}
+
+.single-location{
+  display: inline-block; 
+	vertical-align: top;
+  width: 48pt; 
+  height: 48pt; 
+  border: 1pt solid;
+	padding: 1pt;
+}
