@@ -1,0 +1,5 @@
+Vue.mixin({
+  methods: {
+    
+  }
+});

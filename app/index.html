@@ -11,10 +11,12 @@
 	<body>
 		<div v-cloak id="app">
       <main class="full">
-        <div v-for="yIndex in 12" style="display: block; width: 100%; height: 51pt">
-          <!-- grids on the map -->
+				<!-- show details info of one single grid -->
+				<grid-details v-if="viewGrid !== null"></grid-details>
+				<!-- grids on the map -->
+        <div v-for="yIndex in 18" style="display: block; width: 100%; height: 42pt">
           <single-grid         
-            v-for="xIndex in 20"
+            v-for="xIndex in 28"
             v-bind:key="'singlelocation' + xIndex + yIndex"
 						v-bind:code="yIndex + '-' + xIndex"
           >
@@ -25,9 +27,13 @@
 		</div>
     <script type="text/javascript" src="vendor/vue.js"></script>
 		<script type="text/javascript" src="vendor/vuex.js"></script>
-		<script type="text/javascript" src="store/index.js"></script>
-    <script type="text/javascript" src="predefine/general.js"></script>
+		<script type="text/javascript" src="predefine/general.js"></script>
+		<script type="text/javascript" src="predefine/helper.js"></script>
+		<script type="text/javascript" src="store/getters.js"></script>
+		<script type="text/javascript" src="store/mutations.js"></script>
+		<script type="text/javascript" src="store/states.js"></script>
     <script type="text/javascript" src="component/single-grid.js"></script>
+		<script type="text/javascript" src="component/grid-details.js"></script>
     <script type="text/javascript" src="app.js"></script>
 	</body>
 </html>

@@ -2,6 +2,20 @@
   display:none; 
 }
 
+h3{
+	padding: 0;
+  margin: 0;
+	font-size: 13pt;
+	font-weight: normal;
+}
+
+h4{
+	padding: 0;
+  margin: 0;
+	font-size: 11pt;
+	font-weight: normal;
+}
+
 h5{
 	padding: 0;
   margin: 0;
@@ -15,8 +29,8 @@ body{
 }
 
 .full{
-  width: 1040pt;
-  height: 612pt;
+  width: 1232pt;
+  height: 758pt;
   position: absolute;
   top: 0;
   left: 0;
@@ -34,9 +48,10 @@ body{
 .single-location{
   display: inline-block; 
 	vertical-align: top;
-  width: 48pt; 
-  height: 48pt; 
+  width: 40pt; 
+  height: 40pt; 
   border: 1pt solid;
 	padding: 1pt;
 	color: white;
+	cursor: pointer;
 }
