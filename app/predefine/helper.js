@@ -1,5 +1,0 @@
-Vue.mixin({
-  methods: {
-    
-  }
-});

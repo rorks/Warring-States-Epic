@@ -8,9 +8,12 @@ Vue.component("single-grid", {
         backgroundColor: typeof cities[code] !== 'undefined' ? getStatesInfo()[cities[code].state].color : 'transparent',
 				opacity: typeof cities[code] !== 'undefined' && cities[code].state !== 0 ? 1 : 0.9
       }"
-			v-on:click="viewGrid"
     >
-			<div v-if="typeof cities[code] !== 'undefined'" style="display: flex; flex-direction: column">
+			<div 
+				v-if="typeof cities[code] !== 'undefined'" 
+				v-on:click="viewGrid"
+				style="display: flex; flex-direction: column; cursor: pointer" 
+			>
 				<div style="display: flex; flex-direction: row; align-items: center">
 					<h5>
 						{{getCitiesInfo()[code].name}}

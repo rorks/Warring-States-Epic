@@ -4,7 +4,7 @@ Vue.component("grid-details", {
       style="
         position: fixed; left: 25%; width: 50%; top: 25%; height: 50%; z-index: 2; background-color: PapayaWhip;
         border: 1pt solid DarkGrey; box-shadow:2pt 2pt 5pt DarkSlateGrey; border-radius: 3pt; padding: 4pt 8pt;
-        overflow-y: scroll
+        overflow-y: scroll; overflow-x: hidden
       "
     >
       <div 
@@ -29,35 +29,108 @@ Vue.component("grid-details", {
             {{getStatesInfo()[details.data.state].name}}
           </h4>
         </div>
-        <img style="width: 12pt; height: 12pt; cursor: pointer" v-bind:src="getIconSrc('leave')" v-on:click="leaveGrid" />
+        <img 
+					style="width: 12pt; height: 12pt; cursor: pointer" 
+					v-bind:src="getIconSrc('leave')" 
+					v-on:click="leaveGrid" 
+				/>
       </div>
-      <template v-if="this.details.type === 'city'">
-        <div style="display: flex; align-items: center; flex-direction: row; padding: 4pt 0">
-          <h4 style="margin-right: 8pt">资源:</h4>
-          <template v-for="food in getCitiesInfo()[code].food">
-            <img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('supply')" />
-            <h5 style="margin-right: 8pt">粮食资源</h5>
-          </template>
-          <template v-for="tax in getCitiesInfo()[code].tax">
-            <img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('treasure')" />
-            <h5 style="margin-right: 8pt">钱财资源</h5>
-          </template>
+      <div v-if="this.details.type === 'city'" style="display: flex; flex-direction: column">
+				<div style="display: flex; flex-direction: row; justify-content: space-between">
+					<div style="display: flex; flex-direction: column">
+						<div style="display: flex; align-items: center; flex-direction: row; padding: 4pt 0">
+							<h4 style="margin-right: 8pt">资源:</h4>
+							<template v-for="food in getCitiesInfo()[code].food">
+								<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('supply')" />
+								<h5 style="margin-right: 8pt">粮食</h5>
+							</template>
+							<template v-for="tax in getCitiesInfo()[code].tax">
+								<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('treasure')" />
+								<h5 style="margin-right: 8pt">市场</h5>
+							</template>
+						</div>
+						<div style="display: flex; align-items: center; flex-direction: row; padding: 4pt 0">
+							<h4 style="margin-right: 8pt">仓库:</h4>
+							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('supply')" />
+							<h5 style="margin-right: 8pt">粮仓 {{details.data.supply}}</h5>
+							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('treasure')" />
+							<h5 style="margin-right: 8pt">金库 {{details.data.treasure}}</h5>
+						</div>
+						<div style="display: flex; align-items: center; flex-direction: row; padding: 4pt 0">
+							<h4 style="margin-right: 8pt">设施:</h4>
+							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('wall')" />
+							<h5 style="margin-right: 8pt">军事等级 {{details.data.build}}</h5>
+							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('farm')" />
+							<h5 style="margin-right: 8pt">农商等级 {{details.data.enhance}}</h5>
+						</div>
+						<div style="display: flex; align-items: center; flex-direction: row; padding: 4pt 0">
+							<h4 style="margin-right: 8pt">军团:</h4>
+							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('arrow')" />
+							<h5 style="margin-right: 8pt">总数 {{details.data.army}}</h5>
+							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('morale')" />
+							<h5 style="margin-right: 8pt">士气 {{details.data.morale}}</h5>
+						</div>
+					</div>
+					<div v-if="details.data.hero !== null" 
+						style="display: flex; flex-direction: column; justify-content: center; align-items: center"
+					>
+						<h4>郡守 {{getHerosInfo()[details.data.hero].name}}</h4>
+						<div style="display: flex; flex-direction: row; margin: 2pt 0">
+							<h5>统帅 {{getHerosInfo()[details.data.hero].battle}}</h5>
+							<h5 style="margin: 0 8pt">斩杀 {{getHerosInfo()[details.data.hero].kill}}</h5>
+							<h5>守护 {{getHerosInfo()[details.data.hero].safe}}</h5>
+						</div>
+						<div style="display: flex; flex-direction: row">
+							<h5 
+								v-if="getHerosInfo()[details.data.hero].enhance === 1"
+								style="margin: 0 4pt; background-color: Teal; color: white; padding: 1pt 2pt; border-radius: 3pt"
+							>
+								民政
+							</h5>
+							<h5 
+								v-if="getHerosInfo()[details.data.hero].build === 1"
+								style="margin: 0 4pt; background-color: Teal; color: white; padding: 1pt 2pt; border-radius: 3pt"
+							>
+								军政
+							</h5>
+							<h5 
+								v-if="getHerosInfo()[details.data.hero].tax === 1"
+								style="margin: 0 4pt; background-color: Teal; color: white; padding: 1pt 2pt; border-radius: 3pt"
+							>
+								商业
+							</h5>
+							<h5 
+								v-if="getHerosInfo()[details.data.hero].food === 1"
+								style="margin: 0 4pt; background-color: Teal; color: white; padding: 1pt 2pt; border-radius: 3pt"
+							>
+								农业
+							</h5>
+							<h5 
+								v-if="getHerosInfo()[details.data.hero].recruit === 1"
+								style="margin: 0 4pt; background-color: Teal; color: white; padding: 1pt 2pt; border-radius: 3pt"
+							>
+								募兵
+							</h5>
+							<h5 style="margin: 0 4pt; background-color: Maroon; color: white; padding: 1pt 2pt; border-radius: 3pt">
+								{{getArmysInfo()[getHerosInfo()[details.data.hero].army].name}}
+							</h5>
+						</div>
+					</div>
+				</div>
+        <div 
+          style="
+            display: flex; justify-content: flex-start; flex-direction: column; padding: 4pt; margin: 4pt 0;
+            background-color: DarkSlateGrey; color: white
+          "
+        >
+          <div style="display: flex; flex-direction: row; justify-content: space-around">
+            <h5>回合产粮: {{getCityFoodGain(details.data, getCitiesInfo()[code])}}</h5>
+            <h5>回合税收: {{getCityTaxGain(details.data, getCitiesInfo()[code])}}</h5>
+            <h5>回合粮耗: {{details.data.army}}</h5>
+            <h5>回合兵源: {{details.data.build}}</h5>
+          </div>
         </div>
-        <div style="display: flex; align-items: center; flex-direction: row; padding: 4pt 0">
-          <h4 style="margin-right: 8pt">设施:</h4>
-          <img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('wall')" />
-          <h5 style="margin-right: 8pt">城防等级 {{details.data.build}}</h5>
-          <img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('farm')" />
-          <h5 style="margin-right: 8pt">农商等级 {{details.data.enhance}}</h5>
-        </div>
-        <div style="display: flex; align-items: center; flex-direction: row; padding: 4pt 0">
-          <h4 style="margin-right: 8pt">军团:</h4>
-          <img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('arrow')" />
-          <h5 style="margin-right: 8pt">总数 {{details.data.army}}</h5>
-          <img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('morale')" />
-          <h5 style="margin-right: 8pt">士气 {{details.data.morale}}</h5>
-        </div>
-      </template>
+      </div>
     </section>
   `,
   computed: {
