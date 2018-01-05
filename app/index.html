@@ -5,19 +5,21 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Baozier">
-    <link rel="stylesheet" type="text/css" href="css/general.css" />
+    <link rel="stylesheet" type="text/css" href="general.css" />
 		<title></title>
   </head>
 	<body>
-		<div v-cloak id="app">
+		<div v-cloak id="app" onselectstart="return false">
       <main class="full">
+				<!-- show info about current round, stage and active state -->
+				<info-board></info-board>
 				<!-- show details info of one single grid -->
-				<grid-details v-if="viewGrid !== null"></grid-details>
+				<grid-details v-if="activeGrid !== null"></grid-details>
 				<!-- grids on the map -->
         <div v-for="yIndex in 18" style="display: block; width: 100%; height: 42pt">
           <single-grid         
             v-for="xIndex in 28"
-            v-bind:key="'singlelocation' + xIndex + yIndex"
+            v-bind:key="'singleGrid' + xIndex + yIndex"
 						v-bind:code="yIndex + '-' + xIndex"
           >
           </single-grid>
@@ -27,11 +29,12 @@
 		</div>
     <script type="text/javascript" src="vendor/vue.js"></script>
 		<script type="text/javascript" src="vendor/vuex.js"></script>
-		<script type="text/javascript" src="definition/info.js"></script>
+		<script type="text/javascript" src="definition/general.js"></script>
 		<script type="text/javascript" src="definition/calculator.js"></script>
 		<script type="text/javascript" src="store/getters.js"></script>
 		<script type="text/javascript" src="store/mutations.js"></script>
-		<script type="text/javascript" src="store/states.js"></script>
+		<script type="text/javascript" src="store/state.js"></script>
+		<script type="text/javascript" src="component/info-board.js"></script>
     <script type="text/javascript" src="component/single-grid.js"></script>
 		<script type="text/javascript" src="component/grid-details.js"></script>
     <script type="text/javascript" src="app.js"></script>

@@ -2,7 +2,7 @@ Vue.component("grid-details", {
   template: `
     <section 
       style="
-        position: fixed; left: 25%; width: 50%; top: 25%; height: 50%; z-index: 2; background-color: PapayaWhip;
+        position: fixed; left: 25%; width: 50%; top: 25%; height: 50%; z-index: 3; background-color: PapayaWhip;
         border: 1pt solid DarkGrey; box-shadow:2pt 2pt 5pt DarkSlateGrey; border-radius: 3pt; padding: 4pt 8pt;
         overflow-y: scroll; overflow-x: hidden
       "
@@ -135,10 +135,10 @@ Vue.component("grid-details", {
   `,
   computed: {
     code: function() {
-      return store.state.viewGrid;
+      return store.state.activeGrid;
     },
     details: function() {
-      return this.$store.getters.viewGridDetails;
+      return this.$store.getters.activeGridDetails;
     }
   },
   methods: {

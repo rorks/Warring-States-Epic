@@ -2,8 +2,8 @@ var app = new Vue({
   el: '#app',
   store: store,
   computed: {
-    viewGrid: function() {
-      return store.state.viewGrid;
+    activeGrid: function() {
+      return store.state.activeGrid;
     }
   }
 });

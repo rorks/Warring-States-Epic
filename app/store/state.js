@@ -4,7 +4,11 @@ var store = new Vuex.Store({
   state: {
     round: 0,
     stage: 0,
-    viewGrid: null,
+    active: 0,
+    rank: [1, 2, 6, 7, 4, 3, 5],
+    player: 1,
+    activeGrid: null,
+    activeInfo: null,
     cities: {
       '3-11': {'state': 0, 'army': 0, 'morale': 0, 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0},
       '3-14': {'state': 0, 'army': 0, 'morale': 0, 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0},
@@ -41,6 +45,6 @@ var store = new Vuex.Store({
       '15-19': {'state': 2, 'army': 50, 'morale': 100, 'hero': 10, 'supply': 500, 'treasure': 500, 'build': 3, 'enhance': 3},
       '12-22': {'state': 0, 'army': 0, 'morale': 0, 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0},
       '15-25': {'state': 0, 'army': 0, 'morale': 0, 'hero': null, 'supply': 0, 'treasure': 0, 'build': 0, 'enhance': 0}
-    }
+    },
   }
 });

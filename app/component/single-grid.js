@@ -1,17 +1,17 @@
 Vue.component("single-grid", {
   props: ['code'],
   template: `
-    <div 
-      class="single-location"
+    <div
       v-bind:style="{
-        borderColor: checkGridActive(code) ? 'lightgrey' : 'transparent',
+				display: 'inline-block', verticalAlign: 'top', width: '40pt', height: '39pt', padding: '1pt', color: 'white',
+        border: checkGridActive(code) ? '1pt solid lightgrey' : '1pt solid transparent',
         backgroundColor: typeof cities[code] !== 'undefined' ? getStatesInfo()[cities[code].state].color : 'transparent',
 				opacity: typeof cities[code] !== 'undefined' && cities[code].state !== 0 ? 1 : 0.9
       }"
     >
 			<div 
 				v-if="typeof cities[code] !== 'undefined'" 
-				v-on:click="viewGrid"
+				v-on:click="enterGrid"
 				style="display: flex; flex-direction: column; cursor: pointer" 
 			>
 				<div style="display: flex; flex-direction: row; align-items: center">
@@ -45,8 +45,8 @@ Vue.component("single-grid", {
     }
   },
 	methods: {
-		viewGrid: function() {
-			this.$store.commit('viewGrid', this.code);
+		enterGrid: function() {
+			this.$store.commit('enterGrid', this.code);
 		}
 	}
 });

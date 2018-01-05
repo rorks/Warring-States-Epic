@@ -44,13 +44,13 @@ Vue.mixin({
     getStatesInfo: function() {
       return [
         {code: 0, name: '野', color: 'DarkGrey'},
-				{code: 1, name: '齐', color: 'DarkOrange', special: 5},
-				{code: 2, name: '楚', color: 'MediumAquaMarine', special: 6},
-				{code: 3, name: '燕', color: 'HotPink', special: 7},
-				{code: 4, name: '赵', color: 'Red', special: 8},
-				{code: 5, name: '韩', color: 'Chocolate', special: 9},
-				{code: 6, name: '魏', color: 'SkyBlue', special: 10},
-				{code: 7, name: '秦', color: 'MediumPurple', special: 11}
+				{code: 1, name: '齐', color: 'DarkOrange', special: 5, owner: 0},
+				{code: 2, name: '楚', color: 'MediumAquaMarine', special: 6, owner: 10},
+				{code: 3, name: '燕', color: 'HotPink', special: 7, owner: 20},
+				{code: 4, name: '赵', color: 'Red', special: 8, owner: 30},
+				{code: 5, name: '韩', color: 'Olive', special: 9, owner: 40},
+				{code: 6, name: '魏', color: 'SkyBlue', special: 10, owner: 50},
+				{code: 7, name: '秦', color: 'MediumPurple', special: 11, owner: 60}
       ];
     },
 		//return army type
@@ -114,7 +114,7 @@ Vue.mixin({
 				{code: 35, name: "乐乘", state: 4, battle: 6, kill: 4, safe: 3, enhance: 0, build: 1, tax: 0, food: 0, recruit: 0, army: 0},
 				{code: 36, name: "赵括", state: 4, battle: 4, kill: 2, safe: 1, enhance: 0, build: 0, tax: 0, food: 0, recruit: 0, army: 0},
 				{code: 37, name: "蔺相如", state: 4, battle: 3, kill: 1, safe: 6, enhance: 1, build: 0, tax: 1, food: 1, recruit: 0, army: 0},
-				{code: 38, name: "平原君", state: 4, battle: 2, kill: 1, safe: 5, enhance: 1, build: 1, tax: 1, food: 0, recruit: 1, army: 0},
+				{code: 38, name: "平原君", state: 4, battle: 2, kill: 1, safe: 5, enhance: 1, build: 0, tax: 1, food: 0, recruit: 1, army: 0},
 				{code: 39, name: "肥义", state: 4, battle: 1, kill: 1, safe: 3, enhance: 1, build: 0, tax: 1, food: 1, recruit: 0, army: 0},
 				
 				{code: 40, name: "韩昭侯", state: 5, battle: 3, kill: 1, safe: 4, enhance: 0, build: 0, tax: 0, food: 1, recruit: 1, army: 9},
@@ -146,10 +146,23 @@ Vue.mixin({
 				{code: 64, name: "李信", state: 7, battle: 7, kill: 6, safe: 1, enhance: 0, build: 0, tax: 0, food: 0, recruit: 0, army: 1},
 				{code: 65, name: "蒙骜", state: 7, battle: 6, kill: 3, safe: 4, enhance: 0, build: 1, tax: 0, food: 0, recruit: 0, army: 0},
 				{code: 66, name: "内史腾", state: 7, battle: 5, kill: 3, safe: 5, enhance: 1, build: 0, tax: 1, food: 1, recruit: 0, army: 0},
-				{code: 67, name: "商鞅", state: 7, battle: 3, kill: 1, safe: 3, enhance: 1, build: 0, tax: 1, food: 1, recruit: 1, army: 0},
+				{code: 67, name: "商鞅", state: 7, battle: 3, kill: 1, safe: 3, enhance: 1, build: 0, tax: 1, food: 1, recruit: 0, army: 0},
 				{code: 68, name: "范雎", state: 7, battle: 2, kill: 1, safe: 2, enhance: 0, build: 0, tax: 1, food: 1, recruit: 0, army: 0},
 				{code: 69, name: "李斯", state: 7, battle: 1, kill: 1, safe: 1, enhance: 1, build: 0, tax: 1, food: 0, recruit: 0, army: 0}
 			];
+		},
+		//return stages name
+		getStageName: function(code) {
+			switch(code) {
+				case 0:
+					return '政务';
+				case 1:
+					return '军事';
+				case 2:
+					return '事件';
+				case 3:
+					return '结算';
+			}
 		},
 		//return icon src info
 		getIconSrc: function(name) {
