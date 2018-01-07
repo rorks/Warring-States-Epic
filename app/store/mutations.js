@@ -14,4 +14,9 @@ const mutations = {
       state.activeGrid = null;
     }
   },
+  actionBuild: function(state, cost) {
+    state.cities[state.activeGrid].build += 1;
+    state.cities[state.activeGrid].treasure -= cost;
+    state.cities[state.activeGrid].action = 'build';
+  }
 }

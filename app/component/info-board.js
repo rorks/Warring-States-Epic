@@ -2,39 +2,64 @@ Vue.component("info-board", {
   template: `
     <div 
       style="
-        position: fixed; z-index: 2; left: 8pt; top: 8pt; width: 250pt; padding: 4pt; flex-direction: column;
+        position: fixed; z-index: 2; left: 0; top: 0; width: 250pt; padding: 6pt 4pt; flex-direction: column;
         background-color: black; color: white; border-radius: 3pt; display: flex; 
       "
      >
-      <div 
-        style="
-          display: flex; flex-direction: row; justify-content: space-around; border-bottom: 1px solid darkgrey;
-          padding-bottom: 4pt; margin-bottom: 4pt
-        "
-      >
+      <div style="display: flex; flex-direction: row; justify-content: space-around; margin-bottom: 6pt">
         <h5>第{{round + 1}}回合</h5>
         <h5>{{getStageName(stage)}}阶段</h5>
-        <h5 v-if="rank[active] !== player">{{getHerosInfo()[getStatesInfo()[rank[active]].owner].name}}行动中</h5>
-        <h5 v-else-if="stage === 0">请处理政务</h5>
+				<div style="display: flex; flex-direction: row">
+					<h5 
+						v-for="(state, index) in rank"
+						v-bind:style="{
+							borderRadius: '50%', width: '15pt', height: '15pt', lineHeight: '15pt', textAlign: 'center', 
+							verticalAlign: 'middle', color: 'white', marginRight: '4pt',
+							backgroundColor: active === index ? getStatesInfo()[state].color : 'DarkSlateGrey'
+						}"
+					>
+						{{getStatesInfo()[state].name}}
+					</h5>
+				</div>
       </div>
-      <div style="display: flex; flex-direction: row; justify-content: space-around">
+			<div style="display: flex; flex-direction: row; margin-bottom: 6pt; padding-left: 8pt">
+				<h5 v-if="rank[active] !== player">{{getHerosInfo()[getStatesInfo()[rank[active]].owner].name}}行动中</h5>
+      	<div v-else-if="stage === 0" style="display: flex; flex-direction: row; align-items: center">
+					<h5 style="margin-right: 4pt">请进入本国城池处理{{getStageName(stage)}}</h5>
+					<h5
+						style="background-color: Gainsboro; color: black; padding: 2pt 4pt; border-radius: 3pt; cursor: pointer"
+					>
+						完成
+					</h5>
+				</div>
+			</div>
+      <div style="display: flex; flex-direction: row; border-top: 1pt solid darkgrey; padding-top: 6pt">
         <h5 
           v-on:click="enterInfo('cities')" 
-          style="background-color: Gainsboro; color: black; padding: 1pt 2pt; border-radius: 3pt; cursor: pointer"
+          style="
+						background-color: Gainsboro; color: black; padding: 1pt 2pt; border-radius: 3pt; cursor: pointer;
+						margin-left: 8pt
+					"
         >
-          城市情报
+          全城市
         </h5>
         <h5 
           v-on:click="enterInfo('states')" 
-          style="background-color: Gainsboro; color: black; padding: 1pt 2pt; border-radius: 3pt; cursor: pointer"
+          style="
+						background-color: Gainsboro; color: black; padding: 1pt 2pt; border-radius: 3pt; cursor: pointer;
+						margin-left: 8pt
+					"
         >
-          势力情报
+          全势力
         </h5>
         <h5 
           v-on:click="enterInfo('heros')" 
-          style="background-color: Gainsboro; color: black; padding: 1pt 2pt; border-radius: 3pt; cursor: pointer"
+          style="
+						background-color: Gainsboro; color: black; padding: 1pt 2pt; border-radius: 3pt; cursor: pointer;
+						margin-left: 8pt
+					"
         >
-          武将情报
+          全武将
         </h5>
       </div>
       <div v-show="activeInfo !== null" style="display: block; margin-top: 5pt; height: 120pt; overflow-y: scroll">
@@ -84,8 +109,7 @@ Vue.component("info-board", {
 					<img style="width: 12pt; height: 12pt; margin-right: 2pt" v-bind:src="getIconSrc('supply')" />
           <h5 style="margin-right: 6pt">{{state.supply}}</h5>
           <img style="width: 12pt; height: 12pt; margin-right: 2pt" v-bind:src="getIconSrc('treasure')" />
-          <h5 style="margin-right: 6pt">{{state.treasure}}</h5>
-					<h5 style="margin-right: 6pt">霸业 {{state.rank}}</h5>
+          <h5>{{state.treasure}}</h5>
         </div>
 				<div 
           v-show="activeInfo === 'heros'"

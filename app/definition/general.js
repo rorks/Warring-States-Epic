@@ -164,6 +164,13 @@ Vue.mixin({
 					return '结算';
 			}
 		},
+		//get grid action name
+		getActionName: function(code) {
+			switch(code) {
+				case 'build':
+					return '军事升级';
+			}
+		},
 		//return icon src info
 		getIconSrc: function(name) {
 			//<a href="https://icons8.com">Icon pack by Icons8</a>

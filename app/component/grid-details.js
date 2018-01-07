@@ -9,8 +9,8 @@ Vue.component("grid-details", {
     >
       <div 
         style="
-          display: flex; align-items: center; flex-direction: row; border-bottom: 1pt solid DarkGrey; padding-bottom: 4pt;
-          justify-content: space-between
+          display: flex; align-items: center; flex-direction: row; border-bottom: 1pt solid DarkGrey; 
+					padding-bottom: 4pt; justify-content: space-between
         "
       >
         <div style="display: flex; align-items: center; flex-direction: row">
@@ -127,15 +127,93 @@ Vue.component("grid-details", {
             <h5>回合产粮: {{getCityFoodGain(details.data, getCitiesInfo()[code])}}</h5>
             <h5>回合税收: {{getCityTaxGain(details.data, getCitiesInfo()[code])}}</h5>
             <h5>回合粮耗: {{details.data.army}}</h5>
-            <h5>回合兵源: {{details.data.build}}</h5>
+            <h5>回合兵源: {{getCityArmyResource(details.data)}}</h5>
           </div>
         </div>
+				<div 
+					v-if="details.data.state === player && rank[active] === player" 
+					style="display: flex; flex-direction: column"
+				>
+          <template v-if="details.data.action === null && stage === 0">
+            <div style="display: flex; flex-direction: row">
+              <div 
+                style="
+                  display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
+                  border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
+                "
+								v-on:click="actionBuild"
+								v-if="details.data.treasure >= getCityBuildCost(details.data)"
+              >
+                <img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('wall')" />
+                <h5>军事升级</h5>
+								<h5>花费{{getCityBuildCost(details.data)}}金</h5>
+              </div>
+              <div 
+                style="
+                  display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
+                  border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
+                "
+								v-if="details.data.treasure >= getCityEnhanceCost(details.data)"
+              >
+                <img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('farm')" />
+                <h5>农商升级</h5>
+								<h5>花费{{getCityEnhanceCost(details.data)}}金</h5>
+              </div>
+              <div 
+                style="
+                  display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
+                  border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
+                "
+								v-if="details.data.treasure > 0 && getCityArmyResource(details.data) > 0"
+              >
+                <img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('arrow')" />
+                <h5>招募乡勇</h5>
+								<h5>1金/军团</h5>
+              </div>
+							<div 
+                style="
+                  display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
+                  border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
+                "
+              >
+                <img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('city')" />
+                <h5>更换郡守</h5>
+								<h5> </h5>
+              </div>
+							<div 
+                style="
+                  display: flex; flex-direction: column; align-items: center; border: 2pt solid Black;
+                  border-radius: 5pt; padding: 4pt; cursor: pointer;
+                "
+              >
+                <img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('morale')" />
+                <h5>调兵遣将</h5>
+								<h5> </h5>
+              </div>
+            </div>
+					</template>
+					<template v-else-if="details.data.action !== null && stage === 0">
+						<h5></h5>
+					</template>
+				</div>
       </div>
     </section>
   `,
   computed: {
     code: function() {
       return store.state.activeGrid;
+    },
+		stage: function() {
+      return store.state.stage;
+    },
+    active: function() {
+      return store.state.active;
+    },
+    rank: function() {
+      return store.state.rank;
+    },
+    player: function() {
+      return store.state.player;
     },
     details: function() {
       return this.$store.getters.activeGridDetails;
@@ -144,6 +222,9 @@ Vue.component("grid-details", {
   methods: {
     leaveGrid: function() {
       this.$store.commit('leaveGrid');
-    }
+    },
+		actionBuild: function() {
+			this.$store.commit('actionBuild', this.getCityBuildCost(this.details.data));
+		}
   }
 });
