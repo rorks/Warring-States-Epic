@@ -13,7 +13,7 @@ Vue.mixin({
     getCityArmyResource: function(cityData) {
       let ratio = cityData.hero === null ? 
         1 : (this.getHerosInfo()[cityData.hero].recruit === 0 ? 1 : 1.5);
-      return parseInt(cityData.build * ratio);
+      return parseInt(cityData.build * 5 * ratio);
     },
     getCityBuildCost: function(cityData) {
       let ratio = cityData.hero === null ? 
@@ -24,6 +24,19 @@ Vue.mixin({
       let ratio = cityData.hero === null ? 
         1 : (this.getHerosInfo()[cityData.hero].enhance === 0 ? 1 : 0.5);
       return 100 * (cityData.enhance + 1) * ratio;
+    },
+    getGridNominatesOptions: function(stateCode, citiesData) {
+      const used = [];
+      Object.entries(citiesData).forEach(function([key, city]) {
+        if (city.state === stateCode && city.hero !== null) {
+          used.push(city.hero)
+        }
+      });
+      const options = this.getHerosInfo().filter(function(hero) {
+        return hero.state === stateCode && used.indexOf(hero.code) === -1;
+      });
+      options.push({code: null});
+      return options;
     }
   }
 });

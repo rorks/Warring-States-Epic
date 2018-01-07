@@ -169,6 +169,10 @@ Vue.mixin({
 			switch(code) {
 				case 'build':
 					return '军事升级';
+				case 'enhance':
+					return '农商升级';
+				case 'nominate':
+					return '更换郡守';
 			}
 		},
 		//return icon src info

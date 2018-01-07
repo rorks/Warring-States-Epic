@@ -132,69 +132,119 @@ Vue.component("grid-details", {
         </div>
 				<div 
 					v-if="details.data.state === player && rank[active] === player" 
-					style="display: flex; flex-direction: column"
+					style="display: flex; flex-direction: row; flex-wrap: wrap"
 				>
-          <template v-if="details.data.action === null && stage === 0">
-            <div style="display: flex; flex-direction: row">
-              <div 
-                style="
-                  display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
-                  border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
-                "
-								v-on:click="actionBuild"
-								v-if="details.data.treasure >= getCityBuildCost(details.data)"
-              >
-                <img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('wall')" />
-                <h5>军事升级</h5>
-								<h5>花费{{getCityBuildCost(details.data)}}金</h5>
-              </div>
-              <div 
-                style="
-                  display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
-                  border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
-                "
-								v-if="details.data.treasure >= getCityEnhanceCost(details.data)"
-              >
-                <img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('farm')" />
-                <h5>农商升级</h5>
-								<h5>花费{{getCityEnhanceCost(details.data)}}金</h5>
-              </div>
-              <div 
-                style="
-                  display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
-                  border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
-                "
-								v-if="details.data.treasure > 0 && getCityArmyResource(details.data) > 0"
-              >
-                <img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('arrow')" />
-                <h5>招募乡勇</h5>
-								<h5>1金/军团</h5>
-              </div>
-							<div 
-                style="
-                  display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
-                  border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
-                "
-              >
-                <img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('city')" />
-                <h5>更换郡守</h5>
-								<h5> </h5>
-              </div>
-							<div 
-                style="
-                  display: flex; flex-direction: column; align-items: center; border: 2pt solid Black;
-                  border-radius: 5pt; padding: 4pt; cursor: pointer;
-                "
-              >
-                <img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('morale')" />
-                <h5>调兵遣将</h5>
-								<h5> </h5>
-              </div>
-            </div>
+					<template v-if="details.data.action !== null && stage === 0">
+						<h5 
+							style="margin-right: 10pt" 
+							v-show="details.data.action === 'build' || details.data.action === 'enhance'"
+						>
+							已完成{{getActionName(details.data.action)}}
+						</h5>
+						<h5 
+							style="margin-right: 10pt" 
+							v-show="details.data.action === 'recruit'"
+						>
+							已招募{{details.data.reminder}}个军团
+						</h5>
+						<h5 
+							style="margin-right: 10pt" 
+							v-show="details.data.action === 'nominate' && details.data.reminder === 2"
+						>
+							已{{getActionName(details.data.action)}}
+						</h5>
 					</template>
-					<template v-else-if="details.data.action !== null && stage === 0">
-						<h5></h5>
+					<template v-if="details.data.action === null && stage === 0">
+						<div 
+							style="
+								display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
+								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
+							"
+							v-on:click="actionBuild"
+							v-if="details.data.treasure >= getCityBuildCost(details.data)"
+						>
+							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('wall')" />
+							<h5>军事升级</h5>
+							<h5>花费{{getCityBuildCost(details.data)}}金</h5>
+						</div>
+						<div 
+							style="
+								display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
+								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
+							"
+							v-on:click="actionEnhance"
+							v-if="details.data.treasure >= getCityEnhanceCost(details.data)"
+						>
+							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('farm')" />
+							<h5>农商升级</h5>
+							<h5>花费{{getCityEnhanceCost(details.data)}}金</h5>
+						</div>
 					</template>
+					<template 
+						v-if="
+							details.data.treasure > 0 && getCityArmyResource(details.data) > details.data.reminder &&
+							stage === 0
+						"
+					>
+						<div 
+							style="
+								display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
+								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
+							"
+							v-on:click="actionRecruit('single')"
+							v-if="details.data.action === null || details.data.action === 'recruit'"
+						>
+							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('arrow')" />
+							<h5>招募乡勇</h5>
+							<h5>1金/军团</h5>
+						</div>
+						<div 
+							style="
+								display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
+								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
+							"
+							v-on:click="actionRecruit('max')"
+							v-if="details.data.action === 'recruit'"
+						>
+							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('arrow')" />
+							<h5>招募乡勇</h5>
+							<h5>招募全部</h5>
+						</div>
+					</template>
+					<template v-if="stage === 0">
+						<div 
+							style="
+								display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
+								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
+							"
+							v-on:click="actionNominating"
+							v-if="details.data.action === null"
+						>
+							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('city')" />
+							<h5>更换郡守</h5>
+						</div>
+						<div 
+							v-if="details.data.action === 'nominate' && details.data.reminder === 1"
+							v-for="option in getGridNominatesOptions(details.data.state, cities)"
+							style="
+								padding: 4pt; border: 2pt solid DarkRed; display: flex; flex-direction: column;
+								border-radius: 5pt; cursor: pointer; margin: 2pt 4pt; align-items: center
+							"
+							v-on:click="actionNominated(option)"
+						>
+							<h5>{{option.code === null ? '不设' : '任命'}}</h5>
+							<h5>{{option.code === null ? '郡守' : option.name}}</h5>
+						</div>
+					</template>
+					<div 
+						style="
+							display: flex; flex-direction: column; align-items: center; border: 2pt solid Black;
+							border-radius: 5pt; padding: 4pt; cursor: pointer;
+						"
+					>
+						<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('morale')" />
+						<h5>调兵遣将</h5>
+					</div>
 				</div>
       </div>
     </section>
@@ -215,6 +265,9 @@ Vue.component("grid-details", {
     player: function() {
       return store.state.player;
     },
+		cities: function() {
+			return store.state.cities;
+		},
     details: function() {
       return this.$store.getters.activeGridDetails;
     }
@@ -225,6 +278,26 @@ Vue.component("grid-details", {
     },
 		actionBuild: function() {
 			this.$store.commit('actionBuild', this.getCityBuildCost(this.details.data));
+		},
+		actionEnhance: function() {
+			this.$store.commit('actionEnhance', this.getCityEnhanceCost(this.details.data));
+		},
+		actionRecruit: function(type) {
+			if (type === 'single') {
+				this.$store.commit('actionRecruit', 1);
+			} else {
+				let max = this.getCityArmyResource(this.details.data) - this.details.data.reminder;
+				if (this.details.data.treasure < max) {
+					max = this.details.data.treasure;
+				}
+				this.$store.commit('actionRecruit', max);
+			}
+		},
+		actionNominating: function() {
+			this.$store.commit('actionNominate');
+		},
+		actionNominated: function(option) {
+			this.$store.commit('actionNominate', option);
 		}
   }
 });
