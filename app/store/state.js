@@ -7,6 +7,7 @@ var store = new Vuex.Store({
     active: 0,
     rank: [1, 2, 6, 7, 4, 3, 5],
     player: 1,
+    history: ['第一回合:'],
     activeGrid: null,
     activeInfo: null,
     cities: {

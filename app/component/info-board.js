@@ -27,6 +27,7 @@ Vue.component("info-board", {
       	<div v-else-if="stage === 0" style="display: flex; flex-direction: row; align-items: center">
 					<h5 style="margin-right: 4pt">请进入本国城池处理{{getStageName(stage)}}</h5>
 					<h5
+						v-on:click="nextActive"
 						style="background-color: Gainsboro; color: black; padding: 2pt 4pt; border-radius: 3pt; cursor: pointer"
 					>
 						完成
@@ -60,6 +61,15 @@ Vue.component("info-board", {
 					"
         >
           全武将
+        </h5>
+				<h5 
+          v-on:click="enterInfo('history')" 
+          style="
+						background-color: Gainsboro; color: black; padding: 1pt 2pt; border-radius: 3pt; cursor: pointer;
+						margin-left: 8pt
+					"
+        >
+          战国志
         </h5>
       </div>
       <div v-show="activeInfo !== null" style="display: block; margin-top: 5pt; height: 120pt; overflow-y: scroll">
@@ -157,6 +167,17 @@ Vue.component("info-board", {
 						{{getArmysInfo()[hero.army].name}}
 					</h5>
 				</div>
+				<div 
+          v-show="activeInfo === 'history'"
+          v-for="info in history"
+					v-if="index !== 0"
+          style="
+            display: flex; flex-direction: row; align-items: center; padding: 4pt 2pt; margin: 1pt 0;
+            background-color: DarkSlateGrey
+          "
+        >
+					<h5>{{info}}</h5>
+				</div>
       </div>
     </div>
   `,
@@ -182,6 +203,9 @@ Vue.component("info-board", {
     cities: function() {
       return store.state.cities;
     },
+		history: function() {
+			return store.state.history;
+		},
     states: function() {
       return this.$store.getters.states;
     },
@@ -189,6 +213,9 @@ Vue.component("info-board", {
   methods: {
     enterInfo: function(code) {
       this.$store.commit('enterInfo', code);
-    }
+    },
+		nextActive: function() {
+			this.$store.commit('nextActive');
+		}
   }
 });

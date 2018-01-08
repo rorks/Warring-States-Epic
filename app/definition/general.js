@@ -168,9 +168,11 @@ Vue.mixin({
 		getActionName: function(code) {
 			switch(code) {
 				case 'build':
-					return '军事升级';
+					return '升级军事';
 				case 'enhance':
-					return '农商升级';
+					return '升级农商';
+				case 'recruit':
+					return '招募乡勇';
 				case 'nominate':
 					return '更换郡守';
 			}

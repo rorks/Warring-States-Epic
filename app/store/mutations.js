@@ -1,4 +1,11 @@
 const mutations = {
+  nextActive: function(state) {
+    state.active++;
+  },
+  addHistory: function(state, info) {
+    state.history.push(info);
+    console.log(state.history);
+  },
   enterGrid: function(state, code) {
     state.activeGrid = code;
     state.activeInfo = null;

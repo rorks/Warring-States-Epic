@@ -164,7 +164,7 @@ Vue.component("grid-details", {
 							v-if="details.data.treasure >= getCityBuildCost(details.data)"
 						>
 							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('wall')" />
-							<h5>军事升级</h5>
+							<h5>{{this.getActionName('build')}}</h5>
 							<h5>花费{{getCityBuildCost(details.data)}}金</h5>
 						</div>
 						<div 
@@ -176,7 +176,7 @@ Vue.component("grid-details", {
 							v-if="details.data.treasure >= getCityEnhanceCost(details.data)"
 						>
 							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('farm')" />
-							<h5>农商升级</h5>
+							<h5>{{this.getActionName('enhance')}}</h5>
 							<h5>花费{{getCityEnhanceCost(details.data)}}金</h5>
 						</div>
 					</template>
@@ -195,7 +195,7 @@ Vue.component("grid-details", {
 							v-if="details.data.action === null || details.data.action === 'recruit'"
 						>
 							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('arrow')" />
-							<h5>招募乡勇</h5>
+							<h5>{{this.getActionName('recruit')}}</h5>
 							<h5>1金/军团</h5>
 						</div>
 						<div 
@@ -207,7 +207,7 @@ Vue.component("grid-details", {
 							v-if="details.data.action === 'recruit'"
 						>
 							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('arrow')" />
-							<h5>招募乡勇</h5>
+							<h5>{{this.getActionName('recruit')}}</h5>
 							<h5>招募全部</h5>
 						</div>
 					</template>
@@ -221,7 +221,7 @@ Vue.component("grid-details", {
 							v-if="details.data.action === null"
 						>
 							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('city')" />
-							<h5>更换郡守</h5>
+							<h5>{{this.getActionName('nominate')}}</h5>
 						</div>
 						<div 
 							v-if="details.data.action === 'nominate' && details.data.reminder === 1"
@@ -236,15 +236,6 @@ Vue.component("grid-details", {
 							<h5>{{option.code === null ? '郡守' : option.name}}</h5>
 						</div>
 					</template>
-					<div 
-						style="
-							display: flex; flex-direction: column; align-items: center; border: 2pt solid Black;
-							border-radius: 5pt; padding: 4pt; cursor: pointer;
-						"
-					>
-						<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('morale')" />
-						<h5>调兵遣将</h5>
-					</div>
 				</div>
       </div>
     </section>
@@ -278,13 +269,18 @@ Vue.component("grid-details", {
     },
 		actionBuild: function() {
 			this.$store.commit('actionBuild', this.getCityBuildCost(this.details.data));
+			this.addHistory();
 		},
 		actionEnhance: function() {
 			this.$store.commit('actionEnhance', this.getCityEnhanceCost(this.details.data));
+			this.addHistory();
 		},
 		actionRecruit: function(type) {
 			if (type === 'single') {
-				this.$store.commit('actionRecruit', 1);
+				if (this.details.data.reminder === 0) {
+					this.$store.commit('actionRecruit', 1);
+				}
+				this.addHistory();
 			} else {
 				let max = this.getCityArmyResource(this.details.data) - this.details.data.reminder;
 				if (this.details.data.treasure < max) {
@@ -298,6 +294,14 @@ Vue.component("grid-details", {
 		},
 		actionNominated: function(option) {
 			this.$store.commit('actionNominate', option);
+			this.addHistory();
+		},
+		addHistory: function(history) {
+			this.$store.commit(
+				'addHistory', 
+				this.getStatesInfo()[this.details.data.state].name + '国在' + 
+				this.getCitiesInfo()[this.code].name + this.getActionName(this.details.data.action)
+			);
 		}
   }
 });
