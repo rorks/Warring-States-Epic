@@ -1,6 +1,11 @@
 const mutations = {
   nextActive: function(state) {
-    state.active++;
+    if (state.active < state.rank.length - 1) {
+      state.active++;
+    } else {
+      state.active = 0;
+      state.stage++;
+    }
   },
   addHistory: function(state, info) {
     state.history.push(info);
@@ -21,27 +26,27 @@ const mutations = {
       state.activeGrid = null;
     }
   },
-  actionBuild: function(state, cost) {
-    state.cities[state.activeGrid].build += 1;
-    state.cities[state.activeGrid].treasure -= cost;
-    state.cities[state.activeGrid].action = 'build';
+  actionBuild: function(state, data) {
+    state.cities[data.code].build += 1;
+    state.cities[data.code].treasure -= data.cost;
+    state.cities[data.code].action = 'build';
   },
-  actionEnhance: function(state, cost) {
-    state.cities[state.activeGrid].enhance += 1;
-    state.cities[state.activeGrid].treasure -= cost;
-    state.cities[state.activeGrid].action = 'enhance';
+  actionEnhance: function(state, data) {
+    state.cities[data.code].enhance += 1;
+    state.cities[data.code].treasure -= data.cost;
+    state.cities[data.code].action = 'enhance';
   },
-  actionRecruit: function(state, number) {
-    state.cities[state.activeGrid].army += number;
-    state.cities[state.activeGrid].reminder += number;
-    state.cities[state.activeGrid].treasure -= number;
-    state.cities[state.activeGrid].action = 'recruit';
+  actionRecruit: function(state, data) {
+    state.cities[data.code].army += data.number;
+    state.cities[data.code].reminder += data.number;
+    state.cities[data.code].treasure -= data.number;
+    state.cities[data.code].action = 'recruit';
   },
-  actionNominate: function(state, choice) {
-    if (state.cities[state.activeGrid].reminder === 1) {
-      state.cities[state.activeGrid].hero = choice.code;
+  actionNominate: function(state, data) {
+    if (state.cities[data.code].reminder === 1) {
+      state.cities[data.code].hero = data.choice.code;
     }
-    state.cities[state.activeGrid].reminder++;
-    state.cities[state.activeGrid].action = 'nominate';
+    state.cities[data.code].reminder++;
+    state.cities[data.code].action = 'nominate';
   }
 }

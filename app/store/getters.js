@@ -30,5 +30,10 @@ const getters = {
 			states[city.state].treasure += city.treasure;
     });
     return states;
-  }
+  },
+	activeCities: function(state) {
+		return Object.entries(state.cities).filter(function([key, city]) {
+			return city.state === state.rank[state.active];
+    }.bind(state));
+	}
 }

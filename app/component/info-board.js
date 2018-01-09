@@ -170,7 +170,6 @@ Vue.component("info-board", {
 				<div 
           v-show="activeInfo === 'history'"
           v-for="info in history"
-					v-if="index !== 0"
           style="
             display: flex; flex-direction: row; align-items: center; padding: 4pt 2pt; margin: 1pt 0;
             background-color: DarkSlateGrey

@@ -268,32 +268,32 @@ Vue.component("grid-details", {
       this.$store.commit('leaveGrid');
     },
 		actionBuild: function() {
-			this.$store.commit('actionBuild', this.getCityBuildCost(this.details.data));
+			this.$store.commit('actionBuild', {cost: this.getCityBuildCost(this.details.data), code: this.code});
 			this.addHistory();
 		},
 		actionEnhance: function() {
-			this.$store.commit('actionEnhance', this.getCityEnhanceCost(this.details.data));
+			this.$store.commit('actionEnhance', {cost: this.getCityEnhanceCost(this.details.data), code: this.code});
 			this.addHistory();
 		},
 		actionRecruit: function(type) {
 			if (type === 'single') {
-				if (this.details.data.reminder === 0) {
-					this.$store.commit('actionRecruit', 1);
+				this.$store.commit('actionRecruit', {number: 1, code: this.code});
+				if (this.details.data.reminder === 1) {
+					this.addHistory();
 				}
-				this.addHistory();
 			} else {
 				let max = this.getCityArmyResource(this.details.data) - this.details.data.reminder;
 				if (this.details.data.treasure < max) {
 					max = this.details.data.treasure;
 				}
-				this.$store.commit('actionRecruit', max);
+				this.$store.commit('actionRecruit', {number: max, code: this.code});
 			}
 		},
 		actionNominating: function() {
-			this.$store.commit('actionNominate');
+			this.$store.commit('actionNominate', {choice: null, code: this.code});
 		},
 		actionNominated: function(option) {
-			this.$store.commit('actionNominate', option);
+			this.$store.commit('actionNominate', {choice: option, code: this.code});
 			this.addHistory();
 		},
 		addHistory: function(history) {
