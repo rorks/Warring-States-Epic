@@ -5,9 +5,10 @@ const mutations = {
     } else {
       state.active = 0;
       state.stage++;
-      Object.entries(state.grids).forEach(function([key, city]) {
-        if (city.reminder !== 0) {city.reminder = 0;}
-        if (city.action !== null) {city.action = null;}
+      Object.entries(state.grids).forEach(function([key, grid]) {
+        if (grid.reminder !== 0) {grid.reminder = 0;}
+        if (grid.helper !== null) {grid.helper = null;}
+        if (grid.action !== null) {grid.action = null;}
       });
     }
   },
@@ -21,6 +22,7 @@ const mutations = {
   },
   leaveGrid: function(state) {
     state.activeGrid = null;
+    if (state.holder !== null) {state.holder = null;}
   },
   enterInfo: function(state, code) {
     if (state.activeInfo === code) {
@@ -57,12 +59,37 @@ const mutations = {
     if (data.to === null) {
       state.attackFrom = data.from;
       state.activeGrid = null;
-    } else if (data.from === null) {
+    } else if (data.from === null && state.attackFrom !== null && state.attackTo === null) {
+      state.attackTo = data.to;
       state.grids[state.attackFrom].helper = 0;
       window.setTimeout(function() {
         state.grids[state.attackFrom].helper = null;
-        state.grids[data.to].helper = 1;
+        state.grids[state.attackTo].helper = 1;
+        window.setTimeout(function() {
+          state.grids[state.attackTo].helper = null;
+          if (state.grids[state.attackTo].state === 0) {
+            state.holder = '没有敌军';
+            window.setTimeout(function() {
+              state.grids[state.attackFrom].action = 'attack';
+              state.attackFrom = null;
+              state.holder = null;
+              state.attackTo = null;
+            }.bind(state), 1500);
+          }
+        }.bind(state), 1000);
       }.bind(state), 500);
+    }
+  },
+  cancelAttack: function(state) {
+    if (state.attackFrom !== null && state.attackTo === null) {
+      state.attackFrom = null;
+    }
+  },
+  actionMarch: function(state, data) {
+    if (data.step === 0) {
+      state.holder = {
+        'from': data.from
+      }
     }
   }
 }

@@ -11,6 +11,8 @@ var store = new Vuex.Store({
     activeGrid: null,
     activeInfo: null,
     attackFrom: null,
+    attackTo: null,
+    holder: null,
     grids: {
       '1-1': {'type': null}, '1-2': {'type': null}, '1-3': {'type': null}, '1-4': {'type': null}, '1-5': {'type': null},
       '1-6': {'type': null}, '1-7': {'type': null}, '1-8': {'type': null}, '1-9': {'type': null}, '1-10': {'type': null},

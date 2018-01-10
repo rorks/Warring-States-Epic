@@ -49,7 +49,7 @@ Vue.component("single-grid", {
 			>
 				<img 
 					v-if="stage === 1 && grids[code].helper === 0" 
-					style="position: relative; top: -40pt; width: 40pt; height: 40pt; margin: 2pt" v-bind:src="getIconSrc('arrow')" 
+					style="position: relative; top: -35pt; left: 2pt; width: 30pt; height: 30pt; margin: 2pt" v-bind:src="getIconSrc('arrow')" 
 				/>
 			</transition>
 			<transition
@@ -58,8 +58,16 @@ Vue.component("single-grid", {
 			>
 				<img 
 					v-if="stage === 1 && grids[code].helper === 1" 
-					style="position: relative; top: -40pt; width: 40pt; height: 40pt; margin: 2pt" v-bind:src="getIconSrc('arrow')" 
+					style="position: relative; top: 5pt; left: 2pt; width: 30pt; height: 30pt; margin: 2pt" v-bind:src="getIconSrc('arrow')" 
 				/>
+			</transition>
+			<transition
+				name="custom-classes-transition"
+				enter-active-class="animated wobble"
+			>
+				<h5 style="color: black; margin-top: 15pt" v-if="holder !== null && code === attackTo">
+					<b>{{holder}}</b>
+				</h5>
 			</transition>
     </div>
   `,
@@ -72,6 +80,12 @@ Vue.component("single-grid", {
     },
 		attackFrom: function() {
       return store.state.attackFrom;
+    },
+		attackTo: function() {
+      return store.state.attackTo;
+    },
+		holder: function() {
+      return store.state.holder;
     },
 		gridBackgroundColor: function() {
 			if (this.attackFrom === null) {

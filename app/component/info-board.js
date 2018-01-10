@@ -33,6 +33,15 @@ Vue.component("info-board", {
 						完成
 					</h5>
 				</div>
+				<div v-else-if="stage === 1 && attackFrom !== null" style="display: flex; flex-direction: row; align-items: center">
+					<h5 style="margin-right: 4pt">请从地图选择进攻目标地区</h5>
+					<h5
+						v-on:click="cancelAttack"
+						style="background-color: Gainsboro; color: black; padding: 2pt 4pt; border-radius: 3pt; cursor: pointer"
+					>
+						取消
+					</h5>
+				</div>
 			</div>
       <div style="display: flex; flex-direction: row; border-top: 1pt solid darkgrey; padding-top: 6pt">
         <h5 
@@ -205,6 +214,9 @@ Vue.component("info-board", {
 		history: function() {
 			return store.state.history;
 		},
+		attackFrom: function() {
+			return store.state.attackFrom;
+		},
     states: function() {
       return this.$store.getters.states;
     },
@@ -215,6 +227,9 @@ Vue.component("info-board", {
     },
 		nextActive: function() {
 			this.$store.commit('nextActive');
+		},
+		cancelAttack: function() {
+			this.$store.commit('cancelAttack');
 		}
   }
 });
