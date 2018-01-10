@@ -26,6 +26,9 @@ var app = new Vue({
       }
     }
   },
+	created: function() {
+		//console.log();
+	},
   computed: {
     activeGrid: function() {
       return store.state.activeGrid;
@@ -41,6 +44,9 @@ var app = new Vue({
     },
     player: function() {
       return store.state.player;
+    },
+		attackFrom: function() {
+      return store.state.attackFrom;
     },
     cities: function() {
 			return store.state.cities;

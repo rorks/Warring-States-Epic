@@ -8,32 +8,24 @@ const StateProto = function(code, rank) {
 }
 
 const getters = {
-  activeGridDetails: function(state) {
-    if (typeof state.cities[state.activeGrid] === 'undefined') {
-      return {}
-    } else {
-      return {
-        type: 'city',
-        data: state.cities[state.activeGrid]
-      }
-    }
-  },
   states: function(state) {
 		const states = [];
 		for (let i = 0; i <= state.rank.length; i++) {
 			states[i] = new StateProto(i, state.rank);
 		}
-    Object.entries(state.cities).forEach(function([key, city]) {
-			states[city.state].cities++;
-			states[city.state].army += city.army;
-			states[city.state].supply += city.supply;
-			states[city.state].treasure += city.treasure;
+    Object.entries(state.grids).forEach(function([key, grid]) {
+			if (grid.type === 'city') {
+				states[grid.state].cities++;
+				states[grid.state].army += grid.army;
+				states[grid.state].supply += grid.supply;
+				states[grid.state].treasure += grid.treasure;
+			}
     });
     return states;
   },
 	activeCities: function(state) {
-		return Object.entries(state.cities).filter(function([key, city]) {
-			return city.state === state.rank[state.active];
+		return Object.entries(state.grids).filter(function([key, grid]) {
+			return grid.state === state.rank[state.active];
     }.bind(state));
 	}
 }

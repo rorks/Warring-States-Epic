@@ -175,6 +175,8 @@ Vue.mixin({
 					return '招募乡勇';
 				case 'nominate':
 					return '更换郡守';
+				case 'attack':
+					return '进攻敌军';
 			}
 		},
 		//return icon src info
@@ -201,31 +203,33 @@ Vue.mixin({
 					return 'data:image/png;base64,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';
 			}
 		},
-		//return true for active grid on map
-    checkGridActive: function(code) {
-      var inactive = [
-        '1-1', '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10', '1-11', '1-12', '1-13',
-				'1-14', '1-15', '1-16', '1-17', '1-18', '1-19', '1-20', 
-        '2-1', '2-2', '2-3', '2-4', '2-5', '2-6', '2-12', '2-13', '2-14', '2-15', '2-16', '2-17',
-        '3-1', '3-2', '3-3', '3-4', '3-5', '3-6', '3-25', '3-26',
-				'4-1', '4-2', '4-3', '4-4', '4-5', '4-6', '4-24', '4-25', '4-26',
-				'5-1', '5-2', '5-3', '5-4', '5-5', '5-22', '5-23', '5-24', '5-25', '5-26', '5-27', '5-28',
-				'6-1', '6-2', '6-3', '6-4', '6-23', '6-24', '6-25', '6-26', '6-27', '6-28',
-				'7-1', '7-2', '7-3', '7-27', '7-28',
-				'8-1', '8-26', '8-27', '8-28',
-				'9-1', '9-25', '9-26', '9-27', '9-28',
-				'10-1', '10-25', '10-26', '10-27', '10-28',
-				'11-1', '11-26', '11-27', '11-28',
-				'12-27', '12-28', 
-				'13-28', 
-				'14-28',
-				'15-1', '15-27', '15-28', 
-				'16-1', '16-5', '16-6', '16-28', 
-				'17-1', '17-2', '17-3', '17-4', '17-5', '17-6', '17-24', '17-25', '17-26', '17-27', '17-28',
-				'18-1', '18-2', '18-3', '18-4', '18-5', '18-6', '18-7', '18-8', '18-15', '18-16', '18-17', '18-18', 
-				'18-19', '18-20', '18-21', '18-22', '18-23', '18-24', '18-25', '18-26', '18-27', '18-28',
-      ];
-      return inactive.indexOf(code) === -1;
-    },
+		checkAttackableArea: function(attackFrom, gridsData) {
+			const location = attackFrom.split('-');
+			const activeX = parseInt(location[1]), activeY = parseInt(location[0]);
+			let range, options = [];
+			if (gridsData[attackFrom].type === 'city') {
+				range = 2;
+			} else {
+				range = 1;
+			}
+			let targetX, targetY, target;
+			if (range === 2) {
+				for (let i = -2; i < 3; i++) {
+					for (let j = -2; j < 3; j++) {
+						if (i === 0 && j === 0) {continue;}
+						if ((Math.abs(i) + Math.abs(j)) < 3) {
+							targetX = activeX + i;
+							if (targetX < 1 || targetX > 28) {continue;}
+							targetY = activeY + j;
+							if (targetY < 1 || targetY > 18) {continue;}
+							target = targetY + '-' + targetX;
+							if (gridsData[target].type === null) {continue;}
+							options.push(target);
+						}
+					}
+				}
+			}
+			return options;
+		},
   }
 });

@@ -78,22 +78,22 @@ Vue.component("info-board", {
           v-for="(city, index) in getCitiesInfo()" 
           v-bind:style="{
             display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '4pt 2pt', margin: '1pt 0',
-            backgroundColor: cities[index].state !== 0 ? getStatesInfo()[cities[index].state].color : 'DarkSlateGrey'
+            backgroundColor: grids[index].state !== 0 ? getStatesInfo()[grids[index].state].color : 'DarkSlateGrey'
           }"
         >
           <h5 style="margin-right: 6pt">{{city.name}}</h5>
           <img style="width: 12pt; height: 12pt; margin-right: 2pt" v-bind:src="getIconSrc('supply')" />
-          <h5 style="margin-right: 6pt">{{cities[index].supply}}</h5>
+          <h5 style="margin-right: 6pt">{{grids[index].supply}}</h5>
           <img style="width: 12pt; height: 12pt; margin-right: 2pt" v-bind:src="getIconSrc('treasure')" />
-          <h5 style="margin-right: 6pt">{{cities[index].treasure}}</h5>
+          <h5 style="margin-right: 6pt">{{grids[index].treasure}}</h5>
           <img style="width: 12pt; height: 12pt; margin-right: 2pt" v-bind:src="getIconSrc('wall')" />
-          <h5 style="margin-right: 6pt">{{cities[index].build}}</h5>
+          <h5 style="margin-right: 6pt">{{grids[index].build}}</h5>
           <img style="width: 12pt; height: 12pt; margin-right: 2pt" v-bind:src="getIconSrc('farm')" />
-          <h5 style="margin-right: 6pt">{{cities[index].enhance}}</h5>
+          <h5 style="margin-right: 6pt">{{grids[index].enhance}}</h5>
           <img style="width: 12pt; height: 12pt; margin-right: 2pt" v-bind:src="getIconSrc('arrow')" />
-          <h5 style="margin-right: 6pt">{{cities[index].army}}</h5>
+          <h5 style="margin-right: 6pt">{{grids[index].army}}</h5>
           <img style="width: 12pt; height: 12pt; margin-right: 2pt" v-bind:src="getIconSrc('morale')" />
-          <h5>{{cities[index].morale}}</h5>
+          <h5>{{grids[index].morale}}</h5>
         </div>
         <div 
           v-show="activeInfo === 'states'"
@@ -199,8 +199,8 @@ Vue.component("info-board", {
     activeInfo: function() {
       return store.state.activeInfo;
     },
-    cities: function() {
-      return store.state.cities;
+    grids: function() {
+      return store.state.grids;
     },
 		history: function() {
 			return store.state.history;

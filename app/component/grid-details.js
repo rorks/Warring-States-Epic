@@ -19,14 +19,14 @@ Vue.component("grid-details", {
             <h3 style="margin-right: 8pt">{{getCitiesInfo()[code].name}}</h3>
           </template>
           <h4 
-            v-if="details.data.state !== 0" 
+            v-if="details.state !== 0" 
             v-bind:style="{
               borderRadius: '50%', width: '15pt', height: '15pt', lineHeight: '15pt', textAlign: 'center', 
               verticalAlign: 'middle', color: 'white',
-              backgroundColor: getStatesInfo()[details.data.state].color
+              backgroundColor: getStatesInfo()[details.state].color
             }"
           >
-            {{getStatesInfo()[details.data.state].name}}
+            {{getStatesInfo()[details.state].name}}
           </h4>
         </div>
         <img 
@@ -52,67 +52,67 @@ Vue.component("grid-details", {
 						<div style="display: flex; align-items: center; flex-direction: row; padding: 4pt 0">
 							<h4 style="margin-right: 8pt">仓库:</h4>
 							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('supply')" />
-							<h5 style="margin-right: 8pt">粮仓 {{details.data.supply}}</h5>
+							<h5 style="margin-right: 8pt">粮仓 {{details.supply}}</h5>
 							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('treasure')" />
-							<h5 style="margin-right: 8pt">金库 {{details.data.treasure}}</h5>
+							<h5 style="margin-right: 8pt">金库 {{details.treasure}}</h5>
 						</div>
 						<div style="display: flex; align-items: center; flex-direction: row; padding: 4pt 0">
 							<h4 style="margin-right: 8pt">设施:</h4>
 							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('wall')" />
-							<h5 style="margin-right: 8pt">军事等级 {{details.data.build}}</h5>
+							<h5 style="margin-right: 8pt">军事等级 {{details.build}}</h5>
 							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('farm')" />
-							<h5 style="margin-right: 8pt">农商等级 {{details.data.enhance}}</h5>
+							<h5 style="margin-right: 8pt">农商等级 {{details.enhance}}</h5>
 						</div>
 						<div style="display: flex; align-items: center; flex-direction: row; padding: 4pt 0">
 							<h4 style="margin-right: 8pt">军团:</h4>
 							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('arrow')" />
-							<h5 style="margin-right: 8pt">总数 {{details.data.army}}</h5>
+							<h5 style="margin-right: 8pt">总数 {{details.army}}</h5>
 							<img style="width: 10pt; height: 10pt; margin-right: 4pt" v-bind:src="getIconSrc('morale')" />
-							<h5 style="margin-right: 8pt">士气 {{details.data.morale}}</h5>
+							<h5 style="margin-right: 8pt">士气 {{details.morale}}</h5>
 						</div>
 					</div>
-					<div v-if="details.data.hero !== null" 
+					<div v-if="details.hero !== null" 
 						style="display: flex; flex-direction: column; justify-content: center; align-items: center"
 					>
-						<h4>郡守 {{getHerosInfo()[details.data.hero].name}}</h4>
+						<h4>郡守 {{getHerosInfo()[details.hero].name}}</h4>
 						<div style="display: flex; flex-direction: row; margin: 2pt 0">
-							<h5>统帅 {{getHerosInfo()[details.data.hero].battle}}</h5>
-							<h5 style="margin: 0 8pt">斩杀 {{getHerosInfo()[details.data.hero].kill}}</h5>
-							<h5>守护 {{getHerosInfo()[details.data.hero].safe}}</h5>
+							<h5>统帅 {{getHerosInfo()[details.hero].battle}}</h5>
+							<h5 style="margin: 0 8pt">斩杀 {{getHerosInfo()[details.hero].kill}}</h5>
+							<h5>守护 {{getHerosInfo()[details.hero].safe}}</h5>
 						</div>
 						<div style="display: flex; flex-direction: row">
 							<h5 
-								v-if="getHerosInfo()[details.data.hero].enhance === 1"
+								v-if="getHerosInfo()[details.hero].enhance === 1"
 								style="margin: 0 4pt; background-color: Teal; color: white; padding: 1pt 2pt; border-radius: 3pt"
 							>
 								民政
 							</h5>
 							<h5 
-								v-if="getHerosInfo()[details.data.hero].build === 1"
+								v-if="getHerosInfo()[details.hero].build === 1"
 								style="margin: 0 4pt; background-color: Teal; color: white; padding: 1pt 2pt; border-radius: 3pt"
 							>
 								军政
 							</h5>
 							<h5 
-								v-if="getHerosInfo()[details.data.hero].tax === 1"
+								v-if="getHerosInfo()[details.hero].tax === 1"
 								style="margin: 0 4pt; background-color: Teal; color: white; padding: 1pt 2pt; border-radius: 3pt"
 							>
 								商业
 							</h5>
 							<h5 
-								v-if="getHerosInfo()[details.data.hero].food === 1"
+								v-if="getHerosInfo()[details.hero].food === 1"
 								style="margin: 0 4pt; background-color: Teal; color: white; padding: 1pt 2pt; border-radius: 3pt"
 							>
 								农业
 							</h5>
 							<h5 
-								v-if="getHerosInfo()[details.data.hero].recruit === 1"
+								v-if="getHerosInfo()[details.hero].recruit === 1"
 								style="margin: 0 4pt; background-color: Teal; color: white; padding: 1pt 2pt; border-radius: 3pt"
 							>
 								募兵
 							</h5>
 							<h5 style="margin: 0 4pt; background-color: Maroon; color: white; padding: 1pt 2pt; border-radius: 3pt">
-								{{getArmysInfo()[getHerosInfo()[details.data.hero].army].name}}
+								{{getArmysInfo()[getHerosInfo()[details.hero].army].name}}
 							</h5>
 						</div>
 					</div>
@@ -124,48 +124,50 @@ Vue.component("grid-details", {
           "
         >
           <div style="display: flex; flex-direction: row; justify-content: space-around">
-            <h5>回合产粮: {{getCityFoodGain(details.data, getCitiesInfo()[code])}}</h5>
-            <h5>回合税收: {{getCityTaxGain(details.data, getCitiesInfo()[code])}}</h5>
-            <h5>回合粮耗: {{details.data.army}}</h5>
-            <h5>回合兵源: {{getCityArmyResource(details.data)}}</h5>
+            <h5>回合产粮: {{getCityFoodGain(details, getCitiesInfo()[code])}}</h5>
+            <h5>回合税收: {{getCityTaxGain(details, getCitiesInfo()[code])}}</h5>
+            <h5>回合粮耗: {{details.army}}</h5>
+            <h5>回合兵源: {{getCityArmyResource(details)}}</h5>
           </div>
         </div>
 				<div 
-					v-if="details.data.state === player && rank[active] === player" 
+					v-if="details.state === player && rank[active] === player" 
 					style="display: flex; flex-direction: row; flex-wrap: wrap"
 				>
-					<template v-if="details.data.action !== null && stage === 0">
+					<template v-if="details.action !== null">
 						<h5 
 							style="margin-right: 10pt" 
-							v-show="details.data.action === 'build' || details.data.action === 'enhance'"
+							v-if="
+								details.action === 'build' || details.action === 'enhance' || details.action === 'attack'
+							"
 						>
-							已完成{{getActionName(details.data.action)}}
+							已{{getActionName(details.action)}}
 						</h5>
 						<h5 
 							style="margin-right: 10pt" 
-							v-show="details.data.action === 'recruit'"
+							v-else-if="details.action === 'recruit'"
 						>
-							已招募{{details.data.reminder}}个军团
+							已招募{{details.reminder}}个军团
 						</h5>
 						<h5 
 							style="margin-right: 10pt" 
-							v-show="details.data.action === 'nominate' && details.data.reminder === 2"
+							v-else-if="details.action === 'nominate' && details.reminder === 2"
 						>
-							已{{getActionName(details.data.action)}}
+							已{{getActionName(details.action)}}
 						</h5>
 					</template>
-					<template v-if="details.data.action === null && stage === 0">
+					<template v-if="stage === 0 && details.action === null">
 						<div 
 							style="
 								display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
 								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
 							"
 							v-on:click="actionBuild"
-							v-if="details.data.treasure >= getCityBuildCost(details.data)"
+							v-if="details.treasure >= getCityBuildCost(details)"
 						>
 							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('wall')" />
 							<h5>{{this.getActionName('build')}}</h5>
-							<h5>花费{{getCityBuildCost(details.data)}}金</h5>
+							<h5>花费{{getCityBuildCost(details)}}金</h5>
 						</div>
 						<div 
 							style="
@@ -173,17 +175,16 @@ Vue.component("grid-details", {
 								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
 							"
 							v-on:click="actionEnhance"
-							v-if="details.data.treasure >= getCityEnhanceCost(details.data)"
+							v-if="details.treasure >= getCityEnhanceCost(details)"
 						>
 							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('farm')" />
 							<h5>{{this.getActionName('enhance')}}</h5>
-							<h5>花费{{getCityEnhanceCost(details.data)}}金</h5>
+							<h5>花费{{getCityEnhanceCost(details)}}金</h5>
 						</div>
 					</template>
 					<template 
 						v-if="
-							details.data.treasure > 0 && getCityArmyResource(details.data) > details.data.reminder &&
-							stage === 0
+							stage === 0 && details.treasure > 0 && getCityArmyResource(details) > details.reminder
 						"
 					>
 						<div 
@@ -192,7 +193,7 @@ Vue.component("grid-details", {
 								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
 							"
 							v-on:click="actionRecruit('single')"
-							v-if="details.data.action === null || details.data.action === 'recruit'"
+							v-if="details.action === null || details.action === 'recruit'"
 						>
 							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('arrow')" />
 							<h5>{{this.getActionName('recruit')}}</h5>
@@ -204,7 +205,7 @@ Vue.component("grid-details", {
 								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
 							"
 							v-on:click="actionRecruit('max')"
-							v-if="details.data.action === 'recruit'"
+							v-if="details.action === 'recruit'"
 						>
 							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('arrow')" />
 							<h5>{{this.getActionName('recruit')}}</h5>
@@ -218,14 +219,14 @@ Vue.component("grid-details", {
 								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
 							"
 							v-on:click="actionNominating"
-							v-if="details.data.action === null"
+							v-if="details.action === null"
 						>
 							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('city')" />
 							<h5>{{this.getActionName('nominate')}}</h5>
 						</div>
 						<div 
-							v-if="details.data.action === 'nominate' && details.data.reminder === 1"
-							v-for="option in getGridNominatesOptions(details.data.state, cities)"
+							v-if="details.action === 'nominate' && details.reminder === 1"
+							v-for="option in getGridNominatesOptions(details.state, grids)"
 							style="
 								padding: 4pt; border: 2pt solid DarkRed; display: flex; flex-direction: column;
 								border-radius: 5pt; cursor: pointer; margin: 2pt 4pt; align-items: center
@@ -234,6 +235,18 @@ Vue.component("grid-details", {
 						>
 							<h5>{{option.code === null ? '不设' : '任命'}}</h5>
 							<h5>{{option.code === null ? '郡守' : option.name}}</h5>
+						</div>
+					</template>
+					<template v-if="stage === 1 && details.action === null">
+						<div 
+							style="
+								display: flex; flex-direction: column; align-items: center; border: 2pt solid DarkRed;
+								border-radius: 5pt; padding: 4pt; cursor: pointer; margin-right: 8pt
+							"
+							v-on:click="actionAttacking"
+						>
+							<img style="width: 18pt; height: 18pt; margin-bottom: 2pt" v-bind:src="getIconSrc('arrow')" />
+							<h5>{{this.getActionName('attack')}}</h5>
 						</div>
 					</template>
 				</div>
@@ -256,11 +269,11 @@ Vue.component("grid-details", {
     player: function() {
       return store.state.player;
     },
-		cities: function() {
-			return store.state.cities;
+		grids: function() {
+			return store.state.grids;
 		},
     details: function() {
-      return this.$store.getters.activeGridDetails;
+			return store.state.grids[store.state.activeGrid];
     }
   },
   methods: {
@@ -268,23 +281,23 @@ Vue.component("grid-details", {
       this.$store.commit('leaveGrid');
     },
 		actionBuild: function() {
-			this.$store.commit('actionBuild', {cost: this.getCityBuildCost(this.details.data), code: this.code});
+			this.$store.commit('actionBuild', {cost: this.getCityBuildCost(this.details), code: this.code});
 			this.addHistory();
 		},
 		actionEnhance: function() {
-			this.$store.commit('actionEnhance', {cost: this.getCityEnhanceCost(this.details.data), code: this.code});
+			this.$store.commit('actionEnhance', {cost: this.getCityEnhanceCost(this.details), code: this.code});
 			this.addHistory();
 		},
 		actionRecruit: function(type) {
 			if (type === 'single') {
 				this.$store.commit('actionRecruit', {number: 1, code: this.code});
-				if (this.details.data.reminder === 1) {
+				if (this.details.reminder === 1) {
 					this.addHistory();
 				}
 			} else {
-				let max = this.getCityArmyResource(this.details.data) - this.details.data.reminder;
-				if (this.details.data.treasure < max) {
-					max = this.details.data.treasure;
+				let max = this.getCityArmyResource(this.details) - this.details.reminder;
+				if (this.details.treasure < max) {
+					max = this.details.treasure;
 				}
 				this.$store.commit('actionRecruit', {number: max, code: this.code});
 			}
@@ -296,11 +309,14 @@ Vue.component("grid-details", {
 			this.$store.commit('actionNominate', {choice: option, code: this.code});
 			this.addHistory();
 		},
+		actionAttacking: function() {
+			this.$store.commit('actionAttack', {from: this.code, to: null});
+		},
 		addHistory: function(history) {
 			this.$store.commit(
 				'addHistory', 
-				this.getStatesInfo()[this.details.data.state].name + '国在' + 
-				this.getCitiesInfo()[this.code].name + this.getActionName(this.details.data.action)
+				this.getStatesInfo()[this.details.state].name + '国在' + 
+				this.getCitiesInfo()[this.code].name + this.getActionName(this.details.action)
 			);
 		}
   }
